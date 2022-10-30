@@ -1,0 +1,26 @@
+Förslag till upplägg kod
+
+1. öppna program
+    1.1 testläge för visning? en extra knapp för att inte blanda/annan lösning?
+2. nytt spel (automatiskt eller fråga?)
+    2.1 spelplan 4x4 skapas
+    2.2 brickorna blandas (ska man kunna köra ny random när som helst med hjälp av knapp?) kan vara bra då inte alla spel går att lösa
+3. flytta brickorna
+    3.1 funktion som kontrollerar godkända flyttningar
+    3.2 funktion som ändrar brickornas placering
+4. vinna spelet (pop-up ruta med info? ex. "Du har vunnit!")
+    4.1 alternativ:
+        4.1.1 vunnit-pop-up. när man stänger kommer man tillbaka till fönstret och får själv trycka på blanda för ett nytt spel
+        4.2.1 vunnit-pop-up med fråga "nytt spel" samt avbryt, för att komma tillbaka till spelfönstret.
+
+TODO 1. ska vi bygga in funktion som bara slumpar spel som går att lösa? krävs extern kodkälla
+TODO 2. bestämma GUI
+TODO 3. bestäma uppbyggnad av spelplanen
+
+Förslag till upplägg GUI
+
+    Window
+    -> övre pane
+        -> menyrad ev blanda(samma funktion som nytt spel), avsluta
+    -> nedre pane
+        -> grid 4x4 med spelet
