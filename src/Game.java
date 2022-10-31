@@ -1,44 +1,26 @@
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.util.Arrays;
 
-public class Game {
+public class Game implements GameInterface {
 
     // Global variables
     public int boardLength = 4;
     int[][] board = new int[boardLength][boardLength];
 
-    // TODO GUI at the top
-
     public Game() {
 
         // GUI initiation
         JFrame gameFrame = new JFrame("15 Pussel");
-        JPanel gameBoard = new JPanel();
-        JPanel menu = new JPanel();
+        JPanel gameBoard = new JPanel(); // panel for all tiles
+        JPanel menuPanel = new JPanel(); // panel for new game button
         JButton newGameButton = new JButton("Nytt spel");
-
-        // GUI interface TODO ändra färger osv.
-        Font buttonFont = new Font("Arial", Font.BOLD, 30); // TODO change to other?
-        Font buttonFontSmall = new Font("Arial", Font.BOLD, 15); // TODO change to other?
-        Color buttonBgColor = new Color(176,196,222); // TODO change to better color
-        Color bgColor = Color.WHITE;
-        Color lineBorderColor = Color.BLACK;
-        EmptyBorder gameBorder = new EmptyBorder(5,5,5,5);
-        LineBorder buttonBorder = new LineBorder(lineBorderColor, 3);
-
-        // TODO fontsize etc.
 
         int tile = 1;
         int row;
         int col;
 
-        // TODO add mouselisterner pushed
+        // TODO add mouse listener pushed reference
 
         for (row = 0; row < boardLength; row++) {
             for (col = 0; col < boardLength; col++) {
@@ -46,8 +28,8 @@ public class Game {
                     break;
                 } else {
                     JButton newTile = new JButton(String.valueOf(tile));
-                    newTile.setFont(buttonFont);
-                    newTile.setBackground(buttonBgColor);
+                    newTile.setFont(tileButtonFont);
+                    newTile.setBackground(tileButtonBgColor);
                     gameBoard.add(newTile);
                     board[row][col] = tile;
                     tile++;
@@ -57,29 +39,30 @@ public class Game {
         // GUI setup
         gameFrame.setLayout(new BorderLayout());
         gameFrame.add(gameBoard, BorderLayout.NORTH);
-        gameFrame.add(menu, BorderLayout.SOUTH);
-        gameFrame.setBackground(bgColor);
+        gameFrame.add(menuPanel, BorderLayout.SOUTH);
+        gameFrame.setBackground(gameColorWhite);
 
-        gameBoard.setBackground(bgColor);
+        gameBoard.setBackground(gameColorWhite);
         gameBoard.setLayout(new GridLayout(boardLength, boardLength));
-        gameBoard.setBorder(gameBorder);
+        gameBoard.setBorder(mainGameBorder);
         gameBoard.setPreferredSize(new Dimension(500, 450));
 
-        menu.add(newGameButton);
-        menu.setBackground(bgColor);
-        menu.setPreferredSize(new Dimension(500, 50));
+        menuPanel.add(newGameButton);
+        menuPanel.setBackground(gameColorWhite);
+        menuPanel.setPreferredSize(new Dimension(500, 50));
 
         newGameButton.setPreferredSize(new Dimension(150,30));
-        newGameButton.setFont(buttonFontSmall);
-        newGameButton.setBackground(Color.WHITE);
-        newGameButton.setBorder(buttonBorder);
+        newGameButton.setFont(newGameButtonFont);
+        newGameButton.setBackground(gameColorWhite);
+        newGameButton.setBorder(newGameButtonBorder);
 
-        // GUI Frame final
+        // GUI Frame
         gameFrame.setVisible(true);
         gameFrame.setLocationRelativeTo(null);
         gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         gameFrame.pack();
 
-        System.out.println(Arrays.deepToString(board)); // test för att skriva ut 2d array
+        // test för att skriva ut 2d array - TODO ta bort innan FINAL
+        System.out.println(Arrays.deepToString(board));
     }
 }
