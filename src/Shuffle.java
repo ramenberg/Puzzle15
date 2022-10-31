@@ -1,0 +1,2 @@
+public class Shuffle {
+}
