@@ -1,6 +1,15 @@
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class Movement {
 
     //mouselistener som utför nedstående movement
+    MouseAdapter mouseClick = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+        }
+    };
 
     public Movement(int position) {
         //Get the indexes where the block is, e.g. getPositions() and hold them on some vars, e.g. row, col
