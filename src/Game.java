@@ -6,7 +6,9 @@ public class Game implements GameInterface {
 
     // Global variables
     public int boardLength = 4;
+
     int[][] board = new int[boardLength][boardLength];
+    public int empty = 0;
 
     public Game() {
 
@@ -22,6 +24,9 @@ public class Game implements GameInterface {
 
         // TODO add mouse listener pushed reference
 
+        Movement moved = new Movement(); // calls actionListener
+
+        // v1
         for (row = 0; row < boardLength; row++) {
             for (col = 0; col < boardLength; col++) {
                 if(tile == 16) { // sista rutan får värdet 0
@@ -36,6 +41,22 @@ public class Game implements GameInterface {
                 }
             }
         }
+
+//        // v2
+//        for (row = 0; row < boardLength; row++) {
+//            for (col = 0; col < boardLength; col++) {
+//                if (row != 4 && col != 4) {
+//                    JButton newTile = new JButton(String.valueOf(tile));
+//                    newTile.setFont(tileButtonFont);
+//                    newTile.setBackground(tileButtonBgColor);
+//                    newTile.addActionListener(moved);
+//                    board[row][col] = tile;
+//                    gameBoard.add(newTile);
+//                    tile++;
+//                }
+//            }
+//        }
+
         // GUI setup
         gameFrame.setLayout(new BorderLayout());
         gameFrame.add(gameBoard, BorderLayout.NORTH);
