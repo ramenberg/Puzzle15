@@ -1,4 +1,7 @@
 public class Movement {
+
+    //mouselistener som utför nedstående movement
+
     public Movement(int position) {
         //Get the indexes where the block is, e.g. getPositions() and hold them on some vars, e.g. row, col
         boolean moved = false;
@@ -6,13 +9,13 @@ public class Movement {
         if (row - 1 > 0 && board[row - 1][col] == 0) {  // Move block up
             board[row - 1][col] = position;
             moved = true;
-        } else if (row + 1 < gridLength - 1 && board[row + 1][col] == 0) { // Move block down
+        } else if (row + 1 < boardLength - 1 && board[row + 1][col] == 0) { // Move block down
             board[row + 1][col] = position;
             moved = true;
         } else if (col - 1 > 0 && board[row][col - 1] == 0) {  // Move block left
             board[row][col - 1] = position;
             moved = true;
-        } else if (col + 1 < gridLength - 1 && board[row][col + 1] == 0) { // Move block right
+        } else if (col + 1 < boardLength - 1 && board[row][col + 1] == 0) { // Move block right
             board[row][col + 1] = position;
             moved = true;
         }
