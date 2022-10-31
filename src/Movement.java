@@ -29,7 +29,7 @@ public class Movement {
             moved = true;
         }
 
-        if moved
-        board[row][col] = 0 // Delete the piece from old position
+        if (moved = true)
+        board[row][col] = 0; // Delete the piece from old position
     }
 }
