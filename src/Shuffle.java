@@ -1,13 +1,7 @@
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Shuffle extends Game {
-//public void shuffleTiles() {
-//    if(tiles != null){
-//        Collections.shuffle(Arrays.asList(tiles));
-//        layoutTiles();
-//    }
-//}
-    public void Shuffle() {
 
-    }
 }
