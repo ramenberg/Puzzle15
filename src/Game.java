@@ -3,8 +3,12 @@ import java.util.Arrays;
 public class Game {
 
     // TODO global variables
-    int[][] board = new int[4][4];
+
+    public int boardLength = 4;
+    int[][] board = new int[boardLength][boardLength];
     int tile = 0;
+    public int row;
+    public int col;
 
     // TODO GUI at the top
 
@@ -12,9 +16,9 @@ public class Game {
 
     // TODO board: fixa att inte nr 16 skrivs ut
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                    board[i][j] = tile;
+        for (row = 0; row < boardLength; row++) {
+            for (col = 0; col < boardLength; col++) {
+                    board[row][col] = tile;
                     tile++;
             }
         }
