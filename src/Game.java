@@ -6,73 +6,20 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
-public class Game extends JFrame implements GameInterface{
+public class Game extends JFrame implements GameInterface {
 
     // Global variables
     public int boardLength = 4;
     int[][] board = new int[boardLength][boardLength];
 
-      // GUI global initiation
+    // GUI global initiation
     JFrame gameFrame = new JFrame("15 Pussel");
     JPanel gameBoard = new JPanel(); // panel for all tiles
     JPanel menuPanel = new JPanel(); // panel for new game button
     JButton newGameButton = new JButton("Nytt spel");
-    public Game() {
+    ButtonListener buttonClicked = new ButtonListener();
 
-        // calls action listener method
-        ButtonListener tileClicked = new ButtonListener();
-
-        int tile = 1;
-        int row;
-        int col;
-
-        Random random = new Random();
-//
-//        boolean[] usedNum = new boolean[16];
-//        for (int i = 0; i < board.length; i++) {
-//            for (int j = 0; j < board[i].length; j++) {
-//                int num = random.nextInt(16);
-//                while(usedNum[num]) {
-//                    num = random.nextInt(16);
-//                }
-//                usedNum[num] = true;
-//                if (num != 0) {
-//                    JButton newTile = new JButton(String.valueOf(tile));
-//                    board[i][j] = tile;
-//                    newTile.setFont(tileButtonFont);
-//                    newTile.setBackground(tileButtonBgColor);
-//                    newTile.addActionListener(tileClicked);
-//                    gameBoard.add(newTile);
-//                } else {
-//                    JButton newTile = new JButton(String.valueOf(tile));
-//                    row = i;
-//                    col = j;
-//
-//
-//
-//                }
-//            }
-//        }
-        System.out.println(Arrays.deepToString(board));
-
-        for (row = 0; row < boardLength; row++) {
-            for (col = 0; col < boardLength; col++) {
-                if (tile == 16) { // sista rutan får värdet 0
-                    break;
-                } else {
-                    JButton newTile = new JButton(String.valueOf(tile));
-                    board[row][col] = tile;
-//                    Shuffle(board);
-                    newTile.setFont(tileButtonFont);
-                    newTile.setBackground(tileButtonBgColor);
-                    newTile.addActionListener(tileClicked);
-                    gameBoard.add(newTile);
-                    tile++;
-                }
-            }
-        }
-
-
+    public void GUI() {
         // GUI setup
         gameFrame.setLayout(new BorderLayout());
         gameFrame.add(gameBoard, BorderLayout.NORTH);
@@ -88,56 +35,95 @@ public class Game extends JFrame implements GameInterface{
         menuPanel.setBackground(gameColorWhite);
         menuPanel.setPreferredSize(new Dimension(500, 50));
 
-        newGameButton.setPreferredSize(new Dimension(150,30));
+        newGameButton.setPreferredSize(new Dimension(150, 30));
         newGameButton.setFont(newGameButtonFont);
         newGameButton.setBackground(gameColorWhite);
         newGameButton.setBorder(newGameButtonBorder);
+        newGameButton.addActionListener(buttonClicked);
 
         // GUI Frame
         gameFrame.setVisible(true);
         gameFrame.setLocationRelativeTo(null);
         gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         gameFrame.pack();
+        gameFrame.repaint();
+    }
+    public Game() {
+
+        newBoard();
+        GUI();
 
         // test för att skriva ut 2d array - TODO ta bort innan FINAL
         System.out.println(Arrays.deepToString(board));
-
-        }
-
-        // Movement
-    class ButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
     }
-
     // Shuffle
-//    public void shuffleTiles() {
-//        if(tiles != null){
-//            Collections.shuffle(Arrays.asList(tiles));
-//            layoutTiles();
-//        }
-//    }
-    public void Shuffle(int[][] list) {
-        Random random = new Random();
+    public int[] ShuffledList() {
+        Random rand = new Random();
 
-        for (int i = list.length - 1; i > 0; i--) {
-            for (int j = list[i].length - 1; j > 0; j--) {
-                int m = random.nextInt(i + 1);
-                int n = random.nextInt(j + 1);
+        int[] list = new int[16];
+        Arrays.setAll(list, i -> i);
 
-                int temp = list[i][j];
-                list[i][j] = list[m][n];
-                list[m][n] = temp;
-            }
+        for (int i = 0; i < list.length; i++) {
+            int randomIndexToSwap = rand.nextInt(list.length);
+            int temp = list[randomIndexToSwap];
+            list[randomIndexToSwap] = list[i];
+            list[i] = temp;
         }
+        System.out.println(Arrays.toString(list));
+        return list;
+    }
+    public void newBoard() {
+        int row;
+        int col;
+        int tile;
+
+        int[] list = ShuffledList();
+
+        for (row = 0; row < boardLength; row++)
+            for (col = 0; col < boardLength; col++) {
+                board[row][col] = list[(col * boardLength) + row];
+                if (board[row][col] != 0) {
+                    tile = board[row][col];
+                    JButton newTile = new JButton(String.valueOf(tile));
+                    newTile.setFont(tileButtonFont);
+                    newTile.setBackground(tileButtonBgColor);
+                    newTile.addActionListener(buttonClicked);
+                    gameBoard.add(newTile);
+                }
+            }
     }
 
     // Movement
-    public void Movement(int position) {
-        //Get the indexes where the block is, e.g. getPositions() and hold them on some vars, e.g. row, col
-        boolean moved = false;
+    class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == newGameButton) {
+                newBoard();
+                gameBoard.repaint();
+            }
+        }
+
+
+
+            public void Shuffle(int[][] list) {
+                Random random = new Random();
+
+                for (int i = list.length - 1; i > 0; i--) {
+                    for (int j = list[i].length - 1; j > 0; j--) {
+                        int m = random.nextInt(i + 1);
+                        int n = random.nextInt(j + 1);
+
+                        int temp = list[i][j];
+                        list[i][j] = list[m][n];
+                        list[m][n] = temp;
+                    }
+                }
+            }
+
+            // Movement
+            public void Movement(int position) {
+                //Get the indexes where the block is, e.g. getPositions() and hold them on some vars, e.g. row, col
+                boolean moved = false;
 
 //        if (row - 1 > 0 && board[row - 1][col] == 0) {  // Move block up
 //            board[row - 1][col] = position;
@@ -155,5 +141,6 @@ public class Game extends JFrame implements GameInterface{
 //
 //        if (moved = true)
 //            board[row][col] = 0; // Delete the piece from old position
+            }
+        }
     }
-}
