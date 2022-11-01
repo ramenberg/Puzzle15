@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 
 public class Game extends JFrame implements GameInterface {
@@ -72,19 +73,16 @@ public class Game extends JFrame implements GameInterface {
         System.out.println(Arrays.toString(list));
         return list;
     }
-    public void newBoard() {
+    public void renderBoard() {
         int row;
         int col;
         int tile;
-
-        int[] list = ShuffledList();
         gameBoard.removeAll();
         gameBoard.revalidate();
         gameBoard.repaint();
 
         for (row = 0; row < boardLength; row++) {
             for (col = 0; col < boardLength; col++) {
-                board[row][col] = list[(col * boardLength) + row];
 
 
                 if (board[row][col] != 17) {
@@ -104,6 +102,19 @@ public class Game extends JFrame implements GameInterface {
                 }
             }
         }
+    }
+    public void newBoard() {
+        int row;
+        int col;
+
+        int[] list = ShuffledList();
+        for (row = 0; row < boardLength; row++) {
+            for (col = 0; col < boardLength; col++) {
+                board[row][col] = list[(col * boardLength) + row];
+            }
+        }
+        renderBoard();
+
         // för att testa vad som funkar
         /*for (row = 0; row < boardLength; row++) {
             for (col = 0; col < boardLength; col++) {
@@ -120,6 +131,12 @@ public class Game extends JFrame implements GameInterface {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == newGameButton) {
                 newBoard();
+            }
+            else{
+                JButton clickedButton = (JButton) e.getSource();
+                if (clickedButton instanceof JButton){
+                    Movement(clickedButton.getX(),clickedButton.getY());
+                }
             }
         }
 
@@ -141,26 +158,33 @@ public class Game extends JFrame implements GameInterface {
             }
 
             // Movement
-            public void Movement(int position) {
+            public void Movement(int X,int Y) {
+
                 //Get the indexes where the block is, e.g. getPositions() and hold them on some vars, e.g. row, col
                 boolean moved = false;
+                int row = Y/110;
+                int col = X/122;
+                int position = board[row][col];
+                System.out.println((row) + " " + (col));
 
-//        if (row - 1 > 0 && board[row - 1][col] == 0) {  // Move block up
-//            board[row - 1][col] = position;
-//            moved = true;
-//        } else if (row + 1 < boardLength - 1 && board[row + 1][col] == 0) { // Move block down
-//            board[row + 1][col] = position;
-//            moved = true;
-//        } else if (col - 1 > 0 && board[row][col - 1] == 0) {  // Move block left
-//            board[row][col - 1] = position;
-//            moved = true;
-//        } else if (col + 1 < boardLength - 1 && board[row][col + 1] == 0) { // Move block right
-//            board[row][col + 1] = position;
-//            moved = true;
-//        }
-//
-//        if (moved = true)
-//            board[row][col] = 0; // Delete the piece from old position
+        if (row > 0 && board[row - 1][col] == 0) {  // Move block up
+           board[row - 1][col] = position;
+           moved = true;
+       } else if (row < boardLength - 1 && board[row + 1][col] == 0) { // Move block down
+           board[row + 1][col] = position;
+            moved = true;
+       } else if (col > 0 && board[row][col - 1] == 0) {  // Move block left
+           board[row][col - 1] = position;
+           moved = true;
+        } else if (col < boardLength - 1 && board[row][col + 1] == 0) { // Move block right
+            board[row][col + 1] = position;
+            moved = true;
+        }
+
+       if (moved == true)
+
+            board[row][col] = 0; // Delete the piece from old position
+                renderBoard();
             }
         }
     }
