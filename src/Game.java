@@ -120,7 +120,6 @@ public class Game extends JFrame implements GameInterface {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == newGameButton) {
                 newBoard();
-                gameBoard.repaint();
             }
         }
 
