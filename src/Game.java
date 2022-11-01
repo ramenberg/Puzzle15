@@ -95,6 +95,7 @@ public class Game extends JFrame implements GameInterface {
                     newTile.setFont(tileButtonFont);
                     newTile.setBackground(tileButtonBgColor);
                     newTile.addActionListener(buttonClicked);
+                    // så att 0-tilen inte syns men fortfarande räknas som där för updates
                     if(board[row][col] == 0){
                         newTile.setVisible(false);
                     }
