@@ -78,20 +78,40 @@ public class Game extends JFrame implements GameInterface {
         int tile;
 
         int[] list = ShuffledList();
+        gameBoard.removeAll();
+        gameBoard.revalidate();
+        gameBoard.repaint();
 
-        for (row = 0; row < boardLength; row++)
+        for (row = 0; row < boardLength; row++) {
             for (col = 0; col < boardLength; col++) {
                 board[row][col] = list[(col * boardLength) + row];
-                if (board[row][col] != 0) {
+
+
+                if (board[row][col] != 17) {
+
+
                     tile = board[row][col];
                     JButton newTile = new JButton(String.valueOf(tile));
                     newTile.setFont(tileButtonFont);
                     newTile.setBackground(tileButtonBgColor);
                     newTile.addActionListener(buttonClicked);
+                    if(board[row][col] == 0){
+                        newTile.setVisible(false);
+                    }
                     gameBoard.add(newTile);
+
                 }
             }
-    }
+        }
+        // för att testa vad som funkar
+        /*for (row = 0; row < boardLength; row++) {
+            for (col = 0; col < boardLength; col++) {
+                System.out.print(board[row][col]);
+                }
+            System.out.print("\n");
+            }*/
+        }
+
 
     // Movement
     class ButtonListener implements ActionListener {
