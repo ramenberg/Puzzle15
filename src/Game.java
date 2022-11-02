@@ -3,15 +3,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Objects;
 import java.util.Random;
 
 public class Game extends JFrame implements GameInterface {
 
     // Global variables
-    public int boardLength = 4;
-    int[][] board = new int[boardLength][boardLength];
+    public boolean isTest = true;
+    public int boardSize = 4;
+    public int boardDimension = boardSize * boardSize;
+    int[][] board = new int[boardSize][boardSize];
 
     // GUI global initiation
     JFrame gameFrame = new JFrame("15 Pussel");
@@ -28,7 +28,7 @@ public class Game extends JFrame implements GameInterface {
         gameFrame.setBackground(gameColorWhite);
 
         gameBoard.setBackground(gameColorWhite);
-        gameBoard.setLayout(new GridLayout(boardLength, boardLength));
+        gameBoard.setLayout(new GridLayout(boardSize, boardSize));
         gameBoard.setBorder(mainGameBorder);
         gameBoard.setPreferredSize(new Dimension(500, 450));
 
@@ -57,11 +57,16 @@ public class Game extends JFrame implements GameInterface {
         // test för att skriva ut 2d array - TODO ta bort innan FINAL
         System.out.println(Arrays.deepToString(board));
     }
+    // Testlist - unordered list for test
+    public int[] TestList() {
+        return new int[]{1,5,9,13,2,6,10,14,3,7,11,0,4,8,12,15};
+    }
+
     // Shuffle
     public int[] ShuffledList() {
         Random rand = new Random();
 
-        int[] list = new int[16];
+        int[] list = new int[boardDimension];
         Arrays.setAll(list, i -> i);
 
         for (int i = 0; i < list.length; i++) {
@@ -73,6 +78,8 @@ public class Game extends JFrame implements GameInterface {
         System.out.println(Arrays.toString(list));
         return list;
     }
+
+    // New render board
     public void renderBoard() {
         int row;
         int col;
@@ -81,13 +88,11 @@ public class Game extends JFrame implements GameInterface {
         gameBoard.revalidate();
         gameBoard.repaint();
 
-        for (row = 0; row < boardLength; row++) {
-            for (col = 0; col < boardLength; col++) {
-
-
-                if (board[row][col] != 17) {
-
-
+        for (row = 0; row < boardSize; row++) {
+//            System.out.println(row);
+            for (col = 0; col < boardSize; col++) {
+//                System.out.println(col);
+                if (board[row][col] != (boardDimension +1)) {
                     tile = board[row][col];
                     JButton newTile = new JButton(String.valueOf(tile));
                     newTile.setFont(tileButtonFont);
@@ -98,19 +103,23 @@ public class Game extends JFrame implements GameInterface {
                         newTile.setVisible(false);
                     }
                     gameBoard.add(newTile);
-
                 }
             }
-        }
+        } System.out.println(Arrays.deepToString(board));
     }
     public void newBoard() {
         int row;
         int col;
+        int[] list;
 
-        int[] list = ShuffledList();
-        for (row = 0; row < boardLength; row++) {
-            for (col = 0; col < boardLength; col++) {
-                board[row][col] = list[(col * boardLength) + row];
+        if (isTest) {
+            list = TestList();
+        } else {
+            list = ShuffledList();
+        }
+        for (row = 0; row < boardSize; row++) {
+            for (col = 0; col < boardSize; col++) {
+                board[row][col] = list[(col * boardSize) + row];
             }
         }
         renderBoard();
@@ -134,57 +143,53 @@ public class Game extends JFrame implements GameInterface {
             }
             else{
                 JButton clickedButton = (JButton) e.getSource();
-                if (clickedButton instanceof JButton){
+                if (clickedButton != null){
                     Movement(clickedButton.getX(),clickedButton.getY());
                 }
             }
         }
 
+//            public void Shuffle(int[][] list) { TODO obsolet - ta bort
+//                Random random = new Random();
+//
+//                for (int i = list.length - 1; i > 0; i--) {
+//                    for (int j = list[i].length - 1; j > 0; j--) {
+//                        int m = random.nextInt(i + 1);
+//                        int n = random.nextInt(j + 1);
+//
+//                        int temp = list[i][j];
+//                        list[i][j] = list[m][n];
+//                        list[m][n] = temp;
+//                    }
+//                }
+//            }
 
+        // Movement
+        public void Movement(int x,int y) {
 
-            public void Shuffle(int[][] list) {
-                Random random = new Random();
+            boolean moved = false;
+            int row = y/110;
+            int col = x/122;
+            int position = board[row][col];
+            System.out.println((row) + " " + (col)); // TODO ta bort innan final
 
-                for (int i = list.length - 1; i > 0; i--) {
-                    for (int j = list[i].length - 1; j > 0; j--) {
-                        int m = random.nextInt(i + 1);
-                        int n = random.nextInt(j + 1);
-
-                        int temp = list[i][j];
-                        list[i][j] = list[m][n];
-                        list[m][n] = temp;
-                    }
-                }
+            if (row > 0 && board[row - 1][col] == 0) {  // Move UP
+               board[row - 1][col] = position;
+               moved = true;
+           } else if (row < boardSize - 1 && board[row + 1][col] == 0) { // Move DOWN
+               board[row + 1][col] = position;
+                moved = true;
+           } else if (col > 0 && board[row][col - 1] == 0) {  // Move LEFT
+               board[row][col - 1] = position;
+               moved = true;
+            } else if (col < boardSize - 1 && board[row][col + 1] == 0) { // Move RIGHT
+                board[row][col + 1] = position;
+                moved = true;
             }
+            if (moved)
+                board[row][col] = 0; // Delete from old position
 
-            // Movement
-            public void Movement(int X,int Y) {
-
-                //Get the indexes where the block is, e.g. getPositions() and hold them on some vars, e.g. row, col
-                boolean moved = false;
-                int row = Y/110;
-                int col = X/122;
-                int position = board[row][col];
-                System.out.println((row) + " " + (col));
-
-        if (row > 0 && board[row - 1][col] == 0) {  // Move block up
-           board[row - 1][col] = position;
-           moved = true;
-       } else if (row < boardLength - 1 && board[row + 1][col] == 0) { // Move block down
-           board[row + 1][col] = position;
-            moved = true;
-       } else if (col > 0 && board[row][col - 1] == 0) {  // Move block left
-           board[row][col - 1] = position;
-           moved = true;
-        } else if (col < boardLength - 1 && board[row][col + 1] == 0) { // Move block right
-            board[row][col + 1] = position;
-            moved = true;
-        }
-
-       if (moved == true)
-
-            board[row][col] = 0; // Delete the piece from old position
-                renderBoard();
+            renderBoard();
             }
         }
     }
