@@ -104,6 +104,7 @@ public class Game extends JFrame implements GameInterface {
             }
         }
     }
+
     public static void newBoard() {
         int row;
         int col;
