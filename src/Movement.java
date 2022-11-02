@@ -4,8 +4,8 @@ public class Movement extends Game {
     public static void Moves(int x, int y) {
 
         boolean moved = false;
-        int row = y/110;
-        int col = x/122;
+        int row = y / 110;
+        int col = x/ 122;
         int position = board[row][col];
 
         if (row > 0 && board[row - 1][col] == 0) {  // Move UP
