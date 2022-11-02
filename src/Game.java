@@ -8,19 +8,23 @@ import java.util.Random;
 public class Game extends JFrame implements GameInterface {
 
     // Demo code variable
-    public boolean isTest = true;
+    public static boolean isTest = true;
 
     // Global variables
-    public int boardSize = 4;
-    public int boardDimension = boardSize * boardSize;
-    int[][] board = new int[boardSize][boardSize];
+    public static int boardSize = 4;
+    public static int boardDimension = boardSize * boardSize;
+    static int[][] board = new int[boardSize][boardSize];
 
     // GUI global initiation
     JFrame gameFrame = new JFrame("15 Pussel");
-    JPanel gameBoard = new JPanel(); // panel for all tiles
+    static JPanel gameBoard = new JPanel(); // panel for all tiles
     JPanel menuPanel = new JPanel(); // panel for new game button
     JButton newGameButton = new JButton("Nytt spel");
-    ButtonListener buttonClicked = new ButtonListener();
+    static ButtonListener buttonClicked;
+
+    {
+        buttonClicked = new ButtonListener();
+    }
 
     public void GUI() {
         // GUI setup
@@ -61,7 +65,7 @@ public class Game extends JFrame implements GameInterface {
     }
 
     // Shuffle
-    public int[] ShuffledList() {
+    public static int[] ShuffledList() {
         Random rand = new Random();
 
         int[] list = new int[boardDimension];
@@ -78,7 +82,7 @@ public class Game extends JFrame implements GameInterface {
     }
 
     // New render board
-    public void renderBoard() {
+    public static void renderBoard() {
         int row;
         int col;
         int tile;
@@ -96,7 +100,7 @@ public class Game extends JFrame implements GameInterface {
                     newTile.setFont(tileButtonFont);
                     newTile.setBackground(tileButtonBgColor);
                     newTile.addActionListener(buttonClicked);
-                    // så att 0-tilen inte syns men fortfarande räknas som där för updates
+                    // så att 0-tile inte syns men fortfarande räknas som där för updates
                     if(board[row][col] == 0){
                         newTile.setVisible(false);
                     }
@@ -105,7 +109,7 @@ public class Game extends JFrame implements GameInterface {
             }
         } System.out.println(Arrays.deepToString(board));
     }
-    public void newBoard() {
+    public static void newBoard() {
         int row;
         int col;
         int[] list;
@@ -121,14 +125,6 @@ public class Game extends JFrame implements GameInterface {
             }
         }
         renderBoard();
-
-        // för att testa vad som funkar
-        /*for (row = 0; row < boardLength; row++) {
-            for (col = 0; col < boardLength; col++) {
-                System.out.print(board[row][col]);
-                }
-            System.out.print("\n");
-            }*/
         }
 
 
@@ -142,59 +138,13 @@ public class Game extends JFrame implements GameInterface {
             else{
                 JButton clickedButton = (JButton) e.getSource();
                 if (clickedButton != null){
-                    Movement(clickedButton.getX(),clickedButton.getY());
+                    Movement.Movement(clickedButton.getX(),clickedButton.getY());
                 }
             }
         }
 
-//            public void Shuffle(int[][] list) { TODO obsolet - ta bort
-//                Random random = new Random();
-//
-//                for (int i = list.length - 1; i > 0; i--) {
-//                    for (int j = list[i].length - 1; j > 0; j--) {
-//                        int m = random.nextInt(i + 1);
-//                        int n = random.nextInt(j + 1);
-//
-//                        int temp = list[i][j];
-//                        list[i][j] = list[m][n];
-//                        list[m][n] = temp;
-//                    }
-//                }
-//            }
-
-    // Movement
-    public void Movement(int x,int y) {
-
-        boolean moved = false;
-        int row = y/110;
-        int col = x/122;
-        int position = board[row][col];
-        System.out.println((row) + " " + (col)); // TODO ta bort innan final
-
-        if (row > 0 && board[row - 1][col] == 0) {  // Move UP
-           board[row - 1][col] = position;
-           moved = true;
-       } else if (row < boardSize - 1 && board[row + 1][col] == 0) { // Move DOWN
-           board[row + 1][col] = position;
-            moved = true;
-       } else if (col > 0 && board[row][col - 1] == 0) {  // Move LEFT
-           board[row][col - 1] = position;
-           moved = true;
-        } else if (col < boardSize - 1 && board[row][col + 1] == 0) { // Move RIGHT
-            board[row][col + 1] = position;
-            moved = true;
-        }
-        if (moved)
-            board[row][col] = 0; // Delete from old position
-
-        renderBoard();
-        if (gameWon(board)) {
-            JOptionPane.showMessageDialog(null, "Du har vunnit!\nTryck Ok för att spela igen");
-            newBoard();
-            }
-        }
     }
-    public boolean gameWon(int[][] board) {
+    public static boolean gameWon(int[][] board) {
         int[][] winArray = new int[][]{
                 {1,2,3,4},
                 {5,6,7,8},
