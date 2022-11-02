@@ -40,7 +40,6 @@ public class Game extends JFrame implements GameInterface {
 
         gameBoard.setBackground(gameColorWhite);
         gameBoard.setLayout(new GridLayout(boardSize, boardSize));
-//        gameBoard.setBorder(mainGameBorder);
         gameBoard.setPreferredSize(new Dimension(gameBoardWidth, gameBoardHeight));
 
         menuPanel.add(newGameButton);
@@ -142,7 +141,6 @@ public class Game extends JFrame implements GameInterface {
                 JButton clickedButton = (JButton) e.getSource();
                 if (clickedButton != null){
                     Movement.Moves(clickedButton.getX(),clickedButton.getY());
-                    System.out.println(clickedButton.getX() + "," + clickedButton.getY());
                 }
             }
         }
