@@ -138,7 +138,7 @@ public class Game extends JFrame implements GameInterface {
             else{
                 JButton clickedButton = (JButton) e.getSource();
                 if (clickedButton != null){
-                    Movement.Movement(clickedButton.getX(),clickedButton.getY());
+                    Movement.Moves(clickedButton.getX(),clickedButton.getY());
                 }
             }
         }

@@ -1,9 +1,7 @@
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Movement extends Game {
-    public static void Movement(int x, int y) {
+    public static void Moves(int x, int y) {
 
         boolean moved = false;
         int row = y/110;
