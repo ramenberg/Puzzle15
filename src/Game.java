@@ -8,12 +8,17 @@ import java.util.Random;
 public class Game extends JFrame implements GameInterface {
 
     // Demo code variable
-    public static boolean isTest = false;
+    public static boolean isTest = true;
 
     // Global variables
     public static int boardSize = 4;
     public static int boardDimension = boardSize * boardSize;
+    public static int borderSize = 5;
     static int[][] board = new int[boardSize][boardSize];
+    static int gameBoardWidth = 500;
+    static int gameBoardHeight = 500;
+    static int menuPanelWidth = gameBoardWidth;
+    static int menuPanelHeight = 50;
 
     // GUI global initiation
     JFrame gameFrame = new JFrame("15 Pussel");
@@ -35,12 +40,12 @@ public class Game extends JFrame implements GameInterface {
 
         gameBoard.setBackground(gameColorWhite);
         gameBoard.setLayout(new GridLayout(boardSize, boardSize));
-        gameBoard.setBorder(mainGameBorder);
-        gameBoard.setPreferredSize(new Dimension(500, 450));
+//        gameBoard.setBorder(mainGameBorder);
+        gameBoard.setPreferredSize(new Dimension(gameBoardWidth, gameBoardHeight));
 
         menuPanel.add(newGameButton);
         menuPanel.setBackground(gameColorWhite);
-        menuPanel.setPreferredSize(new Dimension(500, 50));
+        menuPanel.setPreferredSize(new Dimension(menuPanelWidth, menuPanelHeight));
 
         newGameButton.setPreferredSize(new Dimension(150, 30));
         newGameButton.setFont(newGameButtonFont);
@@ -94,9 +99,11 @@ public class Game extends JFrame implements GameInterface {
                     JButton newTile = new JButton(String.valueOf(tile));
                     newTile.setFont(tileButtonFont);
                     newTile.setBackground(tileButtonBgColor);
+                    newTile.setBorder(tileButtonBorder);
                     newTile.addActionListener(buttonClicked);
                     // så att 0-tile inte syns men fortfarande räknas som där för updates
                     if(board[row][col] == 0){
+                        newTile.setBorder(tileButtonBorder);
                         newTile.setVisible(false);
                     }
                     gameBoard.add(newTile);
@@ -104,6 +111,7 @@ public class Game extends JFrame implements GameInterface {
             }
         }
     }
+
     public static void newBoard() {
         int row;
         int col;
@@ -116,7 +124,7 @@ public class Game extends JFrame implements GameInterface {
         }
         for (row = 0; row < boardSize; row++) {
             for (col = 0; col < boardSize; col++) {
-                board[row][col] = list[(col * boardSize) + row];
+                board[row][col] = list[(row * boardSize) + col];
             }
         }
         renderBoard();
@@ -134,6 +142,7 @@ public class Game extends JFrame implements GameInterface {
                 JButton clickedButton = (JButton) e.getSource();
                 if (clickedButton != null){
                     Movement.Moves(clickedButton.getX(),clickedButton.getY());
+                    System.out.println(clickedButton.getX() + "," + clickedButton.getY());
                 }
             }
         }
