@@ -7,7 +7,6 @@ public class Movement extends Game {
         int row = y/110;
         int col = x/122;
         int position = board[row][col];
-        System.out.println((row) + " " + (col)); // TODO ta bort innan final
 
         if (row > 0 && board[row - 1][col] == 0) {  // Move UP
             board[row - 1][col] = position;

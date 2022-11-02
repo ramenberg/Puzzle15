@@ -8,7 +8,7 @@ import java.util.Random;
 public class Game extends JFrame implements GameInterface {
 
     // Demo code variable
-    public static boolean isTest = true;
+    public static boolean isTest = false;
 
     // Global variables
     public static int boardSize = 4;
@@ -60,8 +60,6 @@ public class Game extends JFrame implements GameInterface {
         newBoard();
         GUI();
 
-        // test för att skriva ut 2d array - TODO ta bort innan FINAL
-        System.out.println(Arrays.deepToString(board));
     }
 
     // Shuffle
@@ -77,7 +75,6 @@ public class Game extends JFrame implements GameInterface {
             list[randomIndexToSwap] = list[i];
             list[i] = temp;
         }
-        System.out.println(Arrays.toString(list));
         return list;
     }
 
@@ -91,9 +88,7 @@ public class Game extends JFrame implements GameInterface {
         gameBoard.repaint();
 
         for (row = 0; row < boardSize; row++) {
-//            System.out.println(row);
             for (col = 0; col < boardSize; col++) {
-//                System.out.println(col);
                 if (board[row][col] != (boardDimension +1)) {
                     tile = board[row][col];
                     JButton newTile = new JButton(String.valueOf(tile));
@@ -107,7 +102,7 @@ public class Game extends JFrame implements GameInterface {
                     gameBoard.add(newTile);
                 }
             }
-        } System.out.println(Arrays.deepToString(board));
+        }
     }
     public static void newBoard() {
         int row;
@@ -144,6 +139,7 @@ public class Game extends JFrame implements GameInterface {
         }
 
     }
+    // Win game
     public static boolean gameWon(int[][] board) {
         int[][] winArray = new int[][]{
                 {1,2,3,4},
