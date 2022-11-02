@@ -7,8 +7,10 @@ import java.util.Random;
 
 public class Game extends JFrame implements GameInterface {
 
-    // Global variables
+    // Demo code variable
     public boolean isTest = true;
+
+    // Global variables
     public int boardSize = 4;
     public int boardDimension = boardSize * boardSize;
     int[][] board = new int[boardSize][boardSize];
@@ -56,10 +58,6 @@ public class Game extends JFrame implements GameInterface {
 
         // test för att skriva ut 2d array - TODO ta bort innan FINAL
         System.out.println(Arrays.deepToString(board));
-    }
-    // Testlist - unordered list for test
-    public int[] TestList() {
-        return new int[]{1,5,9,13,2,6,10,14,3,7,11,0,4,8,12,15};
     }
 
     // Shuffle
@@ -113,7 +111,7 @@ public class Game extends JFrame implements GameInterface {
         int[] list;
 
         if (isTest) {
-            list = TestList();
+            list = DemoCode.TestList();
         } else {
             list = ShuffledList();
         }
