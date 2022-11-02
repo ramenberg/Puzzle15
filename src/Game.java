@@ -13,10 +13,12 @@ public class Game extends JFrame implements GameInterface {
     // Global variables
     public static int boardSize = 4;
     public static int boardDimension = boardSize * boardSize;
+    public static int borderSize = 5;
     static int[][] board = new int[boardSize][boardSize];
-    public static int emptyTile = boardSize * boardSize;
-    public static int gameBoardWidth = 500;
-    public static int gameBoardHeight = 450;
+    static int gameBoardWidth = 500;
+    static int gameBoardHeight = 500;
+    static int menuPanelWidth = gameBoardWidth;
+    static int menuPanelHeight = 50;
 
     // GUI global initiation
     JFrame gameFrame = new JFrame("15 Pussel");
@@ -38,12 +40,12 @@ public class Game extends JFrame implements GameInterface {
 
         gameBoard.setBackground(gameColorWhite);
         gameBoard.setLayout(new GridLayout(boardSize, boardSize));
-        gameBoard.setBorder(mainGameBorder);
+//        gameBoard.setBorder(mainGameBorder);
         gameBoard.setPreferredSize(new Dimension(gameBoardWidth, gameBoardHeight));
 
         menuPanel.add(newGameButton);
         menuPanel.setBackground(gameColorWhite);
-        menuPanel.setPreferredSize(new Dimension(gameBoardWidth, 50));
+        menuPanel.setPreferredSize(new Dimension(menuPanelWidth, menuPanelHeight));
 
         newGameButton.setPreferredSize(new Dimension(150, 30));
         newGameButton.setFont(newGameButtonFont);
@@ -100,7 +102,6 @@ public class Game extends JFrame implements GameInterface {
                     newTile.addActionListener(buttonClicked);
                     // så att 0-tile inte syns men fortfarande räknas som där för updates
                     if(board[row][col] == 0){
-                        emptyTile = board[row][col];
                         newTile.setVisible(false);
                     }
                     gameBoard.add(newTile);

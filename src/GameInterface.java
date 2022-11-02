@@ -11,5 +11,5 @@ public interface GameInterface {
     Color tileButtonBgColor = new Color(176,196,222); // TODO change to better color?
     Font newGameButtonFont = new Font("Arial", Font.BOLD, 15); // TODO change appearance?
     LineBorder newGameButtonBorder = new LineBorder(gameColorBlack, 3);
-    EmptyBorder mainGameBorder = new EmptyBorder(5,5,5,5);
+    EmptyBorder mainGameBorder = new EmptyBorder(Game.borderSize, Game.borderSize, Game.borderSize, Game.borderSize);
 }
