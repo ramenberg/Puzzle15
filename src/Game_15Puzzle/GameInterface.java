@@ -1,5 +1,5 @@
-import javax.sound.sampled.Line;
-import javax.swing.border.EmptyBorder;
+package Game_15Puzzle;
+
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
@@ -13,5 +13,4 @@ public interface GameInterface {
     LineBorder tileButtonBorder = new LineBorder(gameColorWhite, 1);
     Font newGameButtonFont = new Font("Arial", Font.BOLD, 15); // TODO change appearance?
     LineBorder newGameButtonBorder = new LineBorder(gameColorBlack, 3);
-    EmptyBorder mainGameBorder = new EmptyBorder(Game.borderSize, Game.borderSize, Game.borderSize, Game.borderSize);
 }

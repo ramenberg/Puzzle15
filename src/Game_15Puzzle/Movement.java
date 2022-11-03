@@ -1,3 +1,5 @@
+package Game_15Puzzle;
+
 import javax.swing.*;
 
 public class Movement extends Game {

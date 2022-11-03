@@ -1,3 +1,5 @@
+package Game_15Puzzle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +15,6 @@ public class Game extends JFrame implements GameInterface {
     // Global variables
     public static int boardSize = 4;
     public static int boardDimension = boardSize * boardSize;
-    public static int borderSize = 5;
     static int[][] board = new int[boardSize][boardSize];
     static int gameBoardWidth = 500;
     static int gameBoardHeight = 500;
@@ -130,7 +131,7 @@ public class Game extends JFrame implements GameInterface {
         }
 
 
-    // Movement
+    // Game15Puzzle.Movement
     class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

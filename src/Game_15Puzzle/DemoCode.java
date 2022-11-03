@@ -1,3 +1,5 @@
+package Game_15Puzzle;
+
 public class DemoCode {
     // Testlist - un ordered list for test
     public static int[] TestList() {

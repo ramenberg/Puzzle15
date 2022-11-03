@@ -28,8 +28,8 @@ Förslag till upplägg GUI
     -> nedre pane
         -> grid 4x4 med spelet
 
-Main - anropar game();
-    Game
+Game_15Puzzle.Main - anropar game();
+    Game_15Puzzle.Game
         - GUI
             - Knapp nytt spel (shuffle)
             - grid med brickorna
@@ -37,5 +37,5 @@ Main - anropar game();
         - skapar upp spelplan 4x4
         - anropar metod shuffle()-klass
     Shuffle
-    Movement - kontroll av godkända moves och flyttar
+    Game_15Puzzle.Movement - kontroll av godkända moves och flyttar
     Solved/win
